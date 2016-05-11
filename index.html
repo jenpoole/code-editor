@@ -3,23 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Code Editor</title>
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
-    <header>
-        <div id="logo">
-            CodeEditor
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Code Editor</a>
+            </div>
+            <!--<ul class="nav navbar-nav pull-right">-->
+                <!--<li class="active"><a href="#">Home</a></li>-->
+            <!--    <li><a href="#">HTML</a></li>-->
+            <!--    <li><a href="#">CSS</a></li>-->
+            <!--    <li><a href="#">Output</a></li>-->
+            <!--</ul>-->
         </div>
-            <div class="toggleButton" id="html">HTML</div>
-            <div class="toggleButton" id="css">CSS</div>
-            <div class="toggleButton" id="javascript">Javascript</div>
-            <div class="toggleButton" id="output">Output</div>
-        <div id="buttonContainer">
-            
-        </div>
-    </header>
+    </nav>
     
+    <div class="row">
+            <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">HTML</div>
+                <div class="panel-body">
+                    <textarea id="htmlPanel" placeholder="Enter some html"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">CSS</div>
+                <div class="panel-body">
+                    <textarea id="cssPanel" placeholder="Enter some css"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">Output</div>
+                <div class="panel-body">
+                    <iframe id="outputPanel"></iframe>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .row -->
+
+    
+    
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    
+    <script>
+        function updateOutput() {
+            // Find html content & css styling and display it in iframe
+            $("iframe").contents().find("html").html("<html><head><style type='text/css'>" + $("#cssPanel").val() + "</style></head><body>" + $("#htmlPanel").val() + "</body></html");
+        }
+        
+        updateOutput()
+        
+        // update iframe when textarea is changed
+        $("textarea").on('change keyup paste', function() {
+        
+            // Find html content and show it in output iframe
+            // $("iframe").contents().find("html").html($("#htmlPanel").val());
+            
+            updateOutput()
+        
+        });
+    
+    </script>
 </body>
 </html>
